@@ -2,8 +2,8 @@
 
 log=/app/_$(date '+%Y%m%d-%H%M%S').log
 
-
-exec &> >(awk '{print strftime("[%Y/%m/%d %H:%M:%S] "),$0 } { fflush() } ' >> $log)
+exec 1>> $log
+exec 2>> $log
 
 for model in "BAAI/bge-m3" "bclavie/JaColBERTv2" "answerdotai/JaColBERTv2.5"; do
     logger -t "docker [$$]" -p local1.info '$model started' -f ./logging.txt
